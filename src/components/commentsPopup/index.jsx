@@ -7,7 +7,7 @@ const CommentsPopup = (id) => {
 
   React.useEffect(() => {
     getComments(id);
-  }, [id]);
+  }, [getComments, id]);
 
   return (
     <div className={S.wrapper}>
@@ -20,7 +20,6 @@ const CommentsPopup = (id) => {
             <h5>{comment.email}</h5>
             <p>{comment.body}</p>
           </div>
-          {/* {loading && <span className={S.loader}></span>} */}
         </div>
       ))}
     </div>
