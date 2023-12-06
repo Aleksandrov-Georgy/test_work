@@ -14,6 +14,7 @@ import Pagination from '../../components/Pagination';
 import CommentsPopup from '../../components/commentsPopup';
 import PopupDelete from '../../components/popupDelete';
 import { useGetDeletePostMutation } from '../../Redux/querySlice';
+import EditPost from '../../components/EditPostForm';
 
 const Root = () => {
   const [highPosts, setHighPosts] = React.useState([]);
@@ -30,6 +31,10 @@ const Root = () => {
   const loader = useSelector((state) => state.dataPost.isLoading);
   const loaderUser = useSelector((state) => state.dataPost.usersLoading);
   const usersList = useSelector((state) => state.dataPost.users);
+
+  const [idEditPost, setIdEditPost] = React.useState(null);
+  const [userEditPost, setUserEditPost] = React.useState(null);
+  const [showEditForm, setShowEditForm] = React.useState(false);
 
   const userData = (id) => {
     for (let i = 0; i < usersList.length; i++) {
@@ -98,6 +103,12 @@ const Root = () => {
     setHighPosts([]);
   };
 
+  const handleEditPost = (post) => {
+    setIdEditPost(post.id);
+    setUserEditPost(post.userId);
+    setShowEditForm(true);
+  };
+
   return (
     <div className={S.postBox}>
       {data
@@ -136,7 +147,9 @@ const Root = () => {
                   onClick={() => showCommentsPopup(post.id)}>
                   Комментарии <TfiCommentsSmiley className={S.box__button_svg} />
                 </button>
-                <button className={S.box__button_edit}>
+                <button
+                  className={S.box__button_edit}
+                  onClick={() => handleEditPost(post)}>
                   Редактировать <CiEdit className={S.box__button_svg} />
                 </button>
                 <button
@@ -207,6 +220,13 @@ const Root = () => {
             </div>
           </div>
         </div>
+      )}
+      {showEditForm && (
+        <EditPost
+          setShowEditForm={setShowEditForm}
+          idEditPost={idEditPost}
+          userEditPost={userEditPost}
+        />
       )}
       <Pagination />
     </div>

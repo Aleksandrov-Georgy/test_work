@@ -34,10 +34,26 @@ export const dataPost = createSlice({
     addNewPost: (state, action) => {
       state.posts = [action.payload, ...state.posts];
     },
+    updatePost: (state, action) => {
+      const editPost = state.posts.find((post) => post.id === action.payload.id);
+
+      editPost.title = action.payload.title;
+      editPost.body = action.payload.body;
+      editPost.id = action.payload.id;
+      editPost.userId = action.payload.userId;
+    },
   },
 });
 
-export const { allPosts, loader, setLimitPosts, setPage, setUsers, setUsersLoading, addNewPost } =
-  dataPost.actions;
+export const {
+  allPosts,
+  loader,
+  setLimitPosts,
+  setPage,
+  setUsers,
+  setUsersLoading,
+  addNewPost,
+  updatePost,
+} = dataPost.actions;
 
 export default dataPost.reducer;

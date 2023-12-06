@@ -34,6 +34,16 @@ export const fetchData = createApi({
         body,
       }),
     }),
+    editPost: build.mutation({
+      query: ({ title, body, idEditPost }) => ({
+        url: `/posts/${idEditPost}`,
+        method: 'PATCH',
+        body: {
+          title,
+          body,
+        },
+      }),
+    }),
   }),
 });
 
@@ -44,6 +54,7 @@ export const {
   useLazyGetCommentsPostQuery,
   useGetDeletePostMutation,
   useAddNewPostMutation,
+  useEditPostMutation,
 } = fetchData;
 
 // addPost: builder.mutation({
