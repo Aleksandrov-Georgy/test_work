@@ -149,7 +149,10 @@ const Root = () => {
                   onClick={() => toFavorites(post.id)}>
                   В избранное
                   {favoritesPost.includes(post.id) ? (
-                    <FaHeart className={S.box__button_svg} />
+                    <FaHeart
+                      className={S.box__button_svg}
+                      style={{ fill: 'red' }}
+                    />
                   ) : (
                     <GrFavorite className={S.box__button_svg} />
                   )}

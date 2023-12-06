@@ -5,6 +5,7 @@ import { MdOutlinePostAdd } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { allPosts, loader, setLimitPosts, setPage } from '../../Redux/dataSlice';
 import { useLazyGetPostsScrollQuery } from '../../Redux/querySlice';
+import AddedPost from '../AddedPost';
 
 const Cap = () => {
   const popupRef = React.useRef();
@@ -13,6 +14,8 @@ const Cap = () => {
 
   const [showPopup, setShowPopup] = React.useState(false);
   const [showPopupLimit, setShowPopupLimit] = React.useState(false);
+
+  const [showAddedPost, setShowAddedPost] = React.useState(false);
 
   const dispatch = useDispatch();
   const page = useSelector((state) => state.dataPost.page);
@@ -24,12 +27,16 @@ const Cap = () => {
   const [limitPage, setLimitPage] = React.useState(limit);
 
   if (data.status === 'fulfilled') {
-    dispatch(allPosts(data.data));
-    dispatch(loader(false));
+    setTimeout(() => {
+      dispatch(allPosts(data.data));
+      dispatch(loader(false));
+    }, 10);
   }
 
   if (data.status === 'pending') {
-    dispatch(loader(true));
+    setTimeout(() => {
+      dispatch(loader(true));
+    }, 10);
   }
 
   React.useEffect(() => {
@@ -70,6 +77,12 @@ const Cap = () => {
 
   return (
     <div className={S.root}>
+      {showAddedPost && (
+        <AddedPost
+          showAddedPost={showAddedPost}
+          setShowAddedPost={setShowAddedPost}
+        />
+      )}
       <div className={S.wrapper}>
         <h1>post list</h1>
         <button
@@ -103,7 +116,9 @@ const Cap = () => {
             <p>Избранным</p>
           </div>
         )}
-        <button className={S.wrapper__added}>
+        <button
+          className={S.wrapper__added}
+          onClick={() => setShowAddedPost(true)}>
           Добавить пост <MdOutlinePostAdd className={S.wrapper__added_svg} />
         </button>
       </div>

@@ -31,10 +31,13 @@ export const dataPost = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
+    addNewPost: (state, action) => {
+      state.posts = [action.payload, ...state.posts];
+    },
   },
 });
 
-export const { allPosts, loader, setLimitPosts, setPage, setUsers, setUsersLoading } =
+export const { allPosts, loader, setLimitPosts, setPage, setUsers, setUsersLoading, addNewPost } =
   dataPost.actions;
 
 export default dataPost.reducer;

@@ -1,5 +1,4 @@
 // import React from 'react';
-import { Route, Routes } from 'react-router-dom';
 // import './App.css';
 import S from './app.module.scss';
 
@@ -14,11 +13,15 @@ function App() {
   const { data, isLoading, isSuccess } = useGetUsersQuery();
 
   if (isLoading) {
-    dispatch(setUsersLoading(isLoading));
+    setTimeout(() => {
+      dispatch(setUsersLoading(isLoading));
+    }, 10);
   }
   if (isSuccess) {
-    dispatch(setUsersLoading(isLoading));
-    dispatch(setUsers(data));
+    setTimeout(() => {
+      dispatch(setUsersLoading(isLoading));
+      dispatch(setUsers(data));
+    }, 10);
   }
 
   return (
@@ -27,12 +30,7 @@ function App() {
         <Cap />
       </div>
       <div className={S.wrapper}>
-        <Routes>
-          <Route
-            path="/"
-            element={<Root />}
-          />
-        </Routes>
+        <Root />
       </div>
     </>
   );

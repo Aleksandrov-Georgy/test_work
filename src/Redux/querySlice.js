@@ -27,6 +27,13 @@ export const fetchData = createApi({
       }),
       invalidatesTags: ['posts'],
     }),
+    addNewPost: build.mutation({
+      query: (body) => ({
+        url: `/posts`,
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -36,6 +43,7 @@ export const {
   useLazyGetPostsScrollQuery,
   useLazyGetCommentsPostQuery,
   useGetDeletePostMutation,
+  useAddNewPostMutation,
 } = fetchData;
 
 // addPost: builder.mutation({
